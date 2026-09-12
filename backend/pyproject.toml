@@ -1,0 +1,48 @@
+[project]
+name = "egreen-quanta-backend"
+version = "0.1.0"
+description = "Egreen Quanta — quantum-inspired cyber threat detection for digital signature security"
+requires-python = ">=3.12"
+readme = "../README.md"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["app", "tests"]
+exclude = ["app/db/migrations/versions"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "C4", "SIM", "ASYNC", "S", "PTH", "RUF"]
+ignore = [
+  "S101",   # asserts (used in tests)
+  "B008",   # function calls in argument defaults (FastAPI Depends pattern)
+  "UP046",  # keep `Generic[T]` base — PEP 695 generics interact awkwardly with Pydantic v2
+  "UP047",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S", "B011", "ARG"]
+"tests/conftest.py" = ["S", "B011", "ARG", "E402"]  # env + sys.path must precede imports
+"app/db/migrations/**" = ["E501", "F401"]
+"app/services/ml/registry.py" = ["ASYNC240"]  # fast local-FS metadata checks, not I/O-bound
+"app/services/crypto/hashes.py" = ["S324"]  # weak-hash detection needs md5/sha1 refs
+
+[tool.mypy]
+python_version = "3.12"
+plugins = ["pydantic.mypy"]
+ignore_missing_imports = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+no_implicit_optional = true
+disallow_untyped_defs = false
+exclude = ["app/db/migrations/"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+addopts = "-q --strict-markers"
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.coverage.run]
+source = ["app"]
+omit = ["app/db/migrations/*", "app/seeds/*"]

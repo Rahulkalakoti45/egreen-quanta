@@ -1,0 +1,52 @@
+# Egreen Quanta — full stack for local demo / staging.
+# Prod-hardened variant (Redis, Celery, TLS): docker-compose.prod.yml
+name: egreen-quanta
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-egreen}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-egreen_dev_pw}
+      POSTGRES_DB: ${POSTGRES_DB:-egreen}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-egreen}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      APP_ENV: ${APP_ENV:-prod}
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-egreen}:${POSTGRES_PASSWORD:-egreen_dev_pw}@db:5432/${POSTGRES_DB:-egreen}
+      SECRET_KEY: ${SECRET_KEY:-change-me-in-.env-please-32-bytes-min}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:8080}
+      LOG_JSON: "true"
+      ML_ENABLED: ${ML_ENABLED:-false}
+      SEED_ON_START: ${SEED_ON_START:-true}
+    ports:
+      - "8000:8000"
+    volumes:
+      - modeldata:/app/var/models
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE_URL: /api/v1
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+
+volumes:
+  pgdata:
+  modeldata:

@@ -1,0 +1,60 @@
+# ---- Secrets / local config ----
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+!datasets/certs/**/*.pem
+!datasets/certs/**/*.key
+backend/var/
+!backend/var/models/.gitkeep
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+coverage.xml
+*.sqlite3
+*.db
+
+# ---- Node / frontend ----
+node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/coverage/
+frontend/.vite-dev.log
+frontend/.vite-dev.err.log
+frontend/.vite.pid
+frontend/.vd.log
+frontend/.vd.err
+*.local
+.eslintcache
+
+# ---- Playwright ----
+test-results/
+playwright-report/
+playwright/.cache/
+
+# ---- Editors / OS ----
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# ---- Docker ----
+docker-compose.override.yml
+
+# ---- TypeScript build cache ----
+*.tsbuildinfo

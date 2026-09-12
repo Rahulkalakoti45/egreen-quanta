@@ -1,0 +1,12 @@
+# Root ruff config — applies to repo-level Python that lives outside backend/
+# (chiefly scripts/). Files under backend/ resolve to backend/pyproject.toml
+# instead, since ruff uses the nearest config to each file.
+
+line-length = 100
+target-version = "py312"
+
+[lint]
+select = ["E", "F", "I", "UP", "B", "C4", "SIM", "PTH", "RUF"]
+ignore = [
+  "B008",  # hashes.SHA256() etc. as arg defaults — stateless value objects, same as backend
+]

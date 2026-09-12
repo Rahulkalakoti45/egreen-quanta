@@ -1,0 +1,31 @@
+{
+  "root": "root-ca.pem",
+  "intermediate": "issuing-ca.pem",
+  "leaves": {
+    "healthy-ec": {
+      "cert": "leaf-healthy-ec.pem",
+      "key": "leaf-healthy-ec.key",
+      "chain": "chain-healthy-ec.pem"
+    },
+    "healthy-rsa": {
+      "cert": "leaf-healthy-rsa.pem",
+      "key": "leaf-healthy-rsa.key",
+      "chain": "chain-healthy-rsa.pem"
+    },
+    "healthy-ed25519": {
+      "cert": "leaf-healthy-ed25519.pem",
+      "key": "leaf-healthy-ed25519.key",
+      "chain": "chain-healthy-ed25519.pem"
+    },
+    "weak-key-rsa1024": {
+      "cert": "leaf-weak-key-rsa1024.pem",
+      "key": "leaf-weak-key-rsa1024.key",
+      "chain": "chain-weak-key-rsa1024.pem"
+    },
+    "expired": {
+      "cert": "leaf-expired.pem",
+      "key": "leaf-expired.key",
+      "chain": "chain-expired.pem"
+    }
+  }
+}

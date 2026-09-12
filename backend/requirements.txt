@@ -1,0 +1,32 @@
+# Runtime dependencies. Pinned to compatible minimums; see requirements.lock for the
+# fully-resolved set produced on this machine (make lock).
+fastapi>=0.115,<0.116
+uvicorn[standard]>=0.32,<0.35
+pydantic>=2.9,<3
+pydantic-settings>=2.6,<3
+SQLAlchemy>=2.0.36,<2.1
+alembic>=1.14,<2
+aiosqlite>=0.20,<0.21
+asyncpg>=0.30,<0.31
+greenlet>=3.1,<4
+python-multipart>=0.0.18
+python-dateutil>=2.9
+email-validator>=2.2
+
+# --- auth / crypto ---
+PyJWT>=2.10,<3
+argon2-cffi>=23.1
+pyotp>=2.9
+cryptography>=44,<46
+asn1crypto>=1.5
+pyhanko>=0.25
+pyhanko-certvalidator>=0.26
+defusedxml>=0.7
+
+# --- analytics ---
+numpy>=2.1,<3
+scikit-learn>=1.5,<2
+
+# --- ops ---
+structlog>=24.4
+httpx>=0.28

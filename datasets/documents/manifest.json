@@ -1,0 +1,66 @@
+{
+  "generated": "2026-09-10T17:29:39.044633+00:00",
+  "message": "Egreen Quanta sample document. This text's integrity is protected by a signature.\n",
+  "note": "Demo signatures over throwaway keys. Regenerate with scripts/gen_sample_signatures.py.",
+  "samples": [
+    {
+      "file": "raw/rsa-pss.json",
+      "endpoint": "POST /api/v1/signatures/verify",
+      "body": "the file contents verbatim",
+      "expected": "signature valid; verdict=valid once the demo root CA is a trust anchor (make seed), else indeterminate. Low risk."
+    },
+    {
+      "file": "raw/rsa-pkcs1v15.json",
+      "endpoint": "POST /api/v1/signatures/verify",
+      "body": "the file contents verbatim",
+      "expected": "signature valid; verdict=valid once the demo root CA is a trust anchor (make seed), else indeterminate. Low risk."
+    },
+    {
+      "file": "raw/ecdsa-p256.json",
+      "endpoint": "POST /api/v1/signatures/verify",
+      "body": "the file contents verbatim",
+      "expected": "signature valid; verdict=valid once the demo root CA is a trust anchor (make seed), else indeterminate. Low risk."
+    },
+    {
+      "file": "raw/ed25519.json",
+      "endpoint": "POST /api/v1/signatures/verify",
+      "body": "the file contents verbatim",
+      "expected": "signature valid; verdict=valid once the demo root CA is a trust anchor (make seed), else indeterminate. Low risk."
+    },
+    {
+      "file": "raw/tampered.json",
+      "endpoint": "POST /api/v1/signatures/verify",
+      "body": "the file contents verbatim",
+      "expected": "verified=false (T01 signature mismatch), alert raised"
+    },
+    {
+      "file": "jws/es256.txt",
+      "endpoint": "POST /api/v1/signatures/verify-document (kind=jws)",
+      "public_key_pem": "-----BEGIN CERTIFICATE-----\nMIIDBTCCAW2gAwIBAgIUUXS3MdK/Flspbc93edOEb9IlbLowDQYJKoZIhvcNAQEL\nBQAwRTEbMBkGA1UECgwSRWdyZWVuIFF1YW50YSBEZW1vMSYwJAYDVQQDDB1FZ3Jl\nZW4gUXVhbnRhIERlbW8gSXNzdWluZyBDQTAeFw0yNjA5MDgxNzA3MzRaFw0yNzA5\nMDkxNzA3MzRaMD4xGzAZBgNVBAoMEkVncmVlbiBRdWFudGEgRGVtbzEfMB0GA1UE\nAwwWRWdyZWVuIERlbW8gaGVhbHRoeS1lYzBZMBMGByqGSM49AgEGCCqGSM49AwEH\nA0IABFcWrvcMslOsfwqp5kv7kTrTjUlZv8iZ+ZZwcVZeFlOWXcmjIDe3naEXpEGE\nRbwELTrWdOeze8p60VOftroIkGyjPzA9MAwGA1UdEwEB/wQCMAAwDgYDVR0PAQH/\nBAQDAgbAMB0GA1UdJQQWMBQGCCsGAQUFBwMEBggrBgEFBQcDAzANBgkqhkiG9w0B\nAQsFAAOCAYEAZQzy0VljTfV2DD3+5TMv1h87SClfD+PsJfWi0/hjE6Zpgz19sokr\nMUFG44lDH9Wp7x/6ZZdJ1qbCkEliSmCSNxfDFKTbGg7RqxRJC1NJsqAfDJNpsUfV\nQX0L9mTRnv5Nu5JBx6PxAm4sEplcD8gblfblLAtBragtElK1pxNACCFS7djWu5cr\nxjSSKHRQlbsOYPYvOsLvvWJNkvnnvmQ7MGsr/qmKbZA5FI1M+eLs/fXwn5ZplCzd\nTZve/cguHak2dh68m2yuAKiKMAPFk6itEidYtuk45t7EX7JkHye3RaznHmPIIWIx\n8Mir8j7VqIjsKaGQYusPmDNBeuPf6XSE9S9ilCLq45J043xtsArV+qBGMYqoxaxk\nmy9nhDEpFoW4YKHd5hUKwdvj0tNkPl1iQ4qGfu4Pjc4wZRIjX3rpHgUfdsCGfs3D\nQMuZBBTuDA3OyZrZZDarIVwUuoS03bBdcf0O9znrIR5FZcWQQFk3TmJtrd20xHXt\nNPPTa8CaMDTS\n-----END CERTIFICATE-----\n",
+      "expected": "verified=true"
+    },
+    {
+      "file": "jws/rs256.txt",
+      "endpoint": "POST /api/v1/signatures/verify-document (kind=jws)",
+      "public_key_pem": "-----BEGIN CERTIFICATE-----\nMIIEUTCCArmgAwIBAgIUMDmqE1nNthkxgehOAB+F3tv4/PcwDQYJKoZIhvcNAQEL\nBQAwRTEbMBkGA1UECgwSRWdyZWVuIFF1YW50YSBEZW1vMSYwJAYDVQQDDB1FZ3Jl\nZW4gUXVhbnRhIERlbW8gSXNzdWluZyBDQTAeFw0yNjA5MDgxNzA3MzRaFw0yNzA5\nMDkxNzA3MzRaMD8xGzAZBgNVBAoMEkVncmVlbiBRdWFudGEgRGVtbzEgMB4GA1UE\nAwwXRWdyZWVuIERlbW8gaGVhbHRoeS1yc2EwggGiMA0GCSqGSIb3DQEBAQUAA4IB\njwAwggGKAoIBgQCizFc1wXYqy1cfWY+MSc3OQtfgeRCyAEd0W/w3+UkbIaF8ycHi\nZuOUuNJucCkKN/gZYgJsBmdG2PLNkxkwIu2/kklmKgqxoJZqLk+iLFW9gpoBgqY6\n6Fy4b4E+XGNLKuAeKeWP4N3kkZAyANzl5qzhVpEIAq2Ai+RQcoon0ZfzuccLUr80\nT3viVfMvRda3YZ3kDV6ZpVwomfCgLVPP5MIVgUiw48qhfGd3m69GkHZtq96ruOzz\nnNzuEL2m9ktbZ10vuW30Mr2kijoOw0HDINdElOgrHz1WlirVeM0axQ/CZk0gmBbI\ngtGfK8YXPJ0n4V8QkbN77oVqbGModEu4ytKNPPX1FJB0FHYtt2mNBXPoDaqDe1zR\nwa2BVxmLFEqivE7zbC9YXH57eJTYed2ShmS4dW7oss3onJF9Dp3idPZhGW7P7ZAn\nhQIY5KMzdThk7TpWCdzfrheydum61+wMAglYOzsbNiidS3LJuSBETcrbELm2ORFX\nS1/ACaFFWUYipCkCAwEAAaM/MD0wDAYDVR0TAQH/BAIwADAOBgNVHQ8BAf8EBAMC\nBsAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMDMA0GCSqGSIb3DQEBCwUA\nA4IBgQCAilPASenMXfecDgh1hMuF2kQOSirVz2su7J273/nUKcAhAD3c5t63q2ZR\ninaYbuEqL7VKBEOc4fPwHNqDiQPRFG3YNOTUhpluMf++qCH1pJ53tEOoY3zDhYV8\n/V814VTJzY5fTgZGN2AMQos98stzm/SV0iRZoVxX4wnllgzB+xK3fbBKOwTzzx+X\nWXUGdEnWpw0U8RQOtggD/4Ny/2+JVMGfc33U4t1d+DZzY2yTaXhTwlMAAuvxGHgN\noK1DAAZ7qSBCQaWDqzYCDsdi8Bx1lcpFIYm2acuuomHRjKkDr84NSBTJ/GsePiBS\n3e/9OctANMgrSGe7iQ1hYHHyThr2f3G9K5FZ5Zxne43xV1YUeMbzkhXJdePNo3kV\n+irVJqXU15k18fJzJSSQ0M8kbKQtC4GrNNkOxD+I/1i9EFOKpkIZswc+91sOwdwE\n2SEM61xlwwG1cyejvnVOinyeCjGFGcjc82aBIt3GaXufknOQeHyVZYUcflYlF5GR\n3x86vPY=\n-----END CERTIFICATE-----\n",
+      "expected": "verified=true"
+    },
+    {
+      "file": "jws/es256-tampered.txt",
+      "endpoint": "POST /api/v1/signatures/verify-document (kind=jws)",
+      "public_key_pem": "-----BEGIN CERTIFICATE-----\nMIIDBTCCAW2gAwIBAgIUUXS3MdK/Flspbc93edOEb9IlbLowDQYJKoZIhvcNAQEL\nBQAwRTEbMBkGA1UECgwSRWdyZWVuIFF1YW50YSBEZW1vMSYwJAYDVQQDDB1FZ3Jl\nZW4gUXVhbnRhIERlbW8gSXNzdWluZyBDQTAeFw0yNjA5MDgxNzA3MzRaFw0yNzA5\nMDkxNzA3MzRaMD4xGzAZBgNVBAoMEkVncmVlbiBRdWFudGEgRGVtbzEfMB0GA1UE\nAwwWRWdyZWVuIERlbW8gaGVhbHRoeS1lYzBZMBMGByqGSM49AgEGCCqGSM49AwEH\nA0IABFcWrvcMslOsfwqp5kv7kTrTjUlZv8iZ+ZZwcVZeFlOWXcmjIDe3naEXpEGE\nRbwELTrWdOeze8p60VOftroIkGyjPzA9MAwGA1UdEwEB/wQCMAAwDgYDVR0PAQH/\nBAQDAgbAMB0GA1UdJQQWMBQGCCsGAQUFBwMEBggrBgEFBQcDAzANBgkqhkiG9w0B\nAQsFAAOCAYEAZQzy0VljTfV2DD3+5TMv1h87SClfD+PsJfWi0/hjE6Zpgz19sokr\nMUFG44lDH9Wp7x/6ZZdJ1qbCkEliSmCSNxfDFKTbGg7RqxRJC1NJsqAfDJNpsUfV\nQX0L9mTRnv5Nu5JBx6PxAm4sEplcD8gblfblLAtBragtElK1pxNACCFS7djWu5cr\nxjSSKHRQlbsOYPYvOsLvvWJNkvnnvmQ7MGsr/qmKbZA5FI1M+eLs/fXwn5ZplCzd\nTZve/cguHak2dh68m2yuAKiKMAPFk6itEidYtuk45t7EX7JkHye3RaznHmPIIWIx\n8Mir8j7VqIjsKaGQYusPmDNBeuPf6XSE9S9ilCLq45J043xtsArV+qBGMYqoxaxk\nmy9nhDEpFoW4YKHd5hUKwdvj0tNkPl1iQ4qGfu4Pjc4wZRIjX3rpHgUfdsCGfs3D\nQMuZBBTuDA3OyZrZZDarIVwUuoS03bBdcf0O9znrIR5FZcWQQFk3TmJtrd20xHXt\nNPPTa8CaMDTS\n-----END CERTIFICATE-----\n",
+      "expected": "verified=false, alert raised"
+    },
+    {
+      "file": "cms/message.p7s",
+      "data_file": "cms/message.txt",
+      "endpoint": "POST /api/v1/signatures/verify-document (kind=cms, detached)",
+      "expected": "signature valid, signer chain reported (verdict=valid with the demo root as a trust anchor)"
+    },
+    {
+      "file": "pdf/signed.pdf",
+      "endpoint": "POST /api/v1/signatures/verify-document (kind=pdf)",
+      "expected": "verified=true, PAdES signature over the whole file"
+    }
+  ]
+}

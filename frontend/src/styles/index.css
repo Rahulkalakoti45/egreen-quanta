@@ -1,0 +1,347 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================================
+   Egreen Quanta — "Quantum SOC" design system
+   Futuristic, glass + gradient, motion-forward. Dark-first; light kept usable.
+   Every colour is an RGB triplet so Tailwind's <alpha-value> works.
+   ========================================================================== */
+
+:root,
+.dark {
+  /* canvas */
+  --bg: 6 8 16;
+  --bg-2: 10 13 24;
+  --surface: 17 22 38; /* solid fallback where blur is unavailable */
+  --surface-2: 24 30 50;
+  --glass: 255 255 255; /* tint applied at low alpha for glass panels */
+  --hairline: 255 255 255; /* the bright edge on glass, in dark mode white */
+  --border: 44 55 84; /* concrete border colour for component <alpha-value> use */
+  --border-strong: 148 163 210;
+
+  --fg: 233 238 250;
+  --muted: 151 165 197;
+  --faint: 108 121 154;
+
+  /* brand — used as a cyan→violet gradient for anything "quantum" */
+  --primary: 34 211 238; /* cyan-400 */
+  --primary-2: 129 108 255; /* indigo/violet */
+  --primary-fg: 4 8 18;
+  --accent: 167 139 250; /* violet-400 */
+  --accent-2: 244 114 182; /* pink-400, third mesh colour */
+
+  /* severity / status */
+  --critical: 251 65 96;
+  --high: 255 148 66;
+  --medium: 250 205 62;
+  --low: 96 165 250;
+  --info: 129 140 248;
+  --ok: 45 212 168;
+
+  /* glow colour driving box-shadows */
+  --glow: 34 211 238;
+}
+
+/* Light theme — kept functional; the app is designed dark-first. */
+.light {
+  --bg: 244 247 252;
+  --bg-2: 236 240 248;
+  --surface: 255 255 255;
+  --surface-2: 240 244 250;
+  --glass: 255 255 255;
+  --hairline: 15 23 42; /* on light, the "edge" is a faint dark line */
+  --border: 210 218 232;
+  --border-strong: 71 85 105;
+
+  --fg: 15 23 42;
+  --muted: 71 85 105;
+  --faint: 120 134 158;
+
+  --primary: 8 145 178;
+  --primary-2: 79 70 229;
+  --primary-fg: 255 255 255;
+  --accent: 124 58 237;
+  --accent-2: 219 39 119;
+
+  --critical: 220 38 38;
+  --high: 234 88 12;
+  --medium: 202 138 4;
+  --low: 37 99 235;
+  --info: 79 70 229;
+  --ok: 5 150 105;
+
+  --glow: 8 145 178;
+}
+
+* {
+  border-color: rgb(var(--border) / 0.7);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: rgb(var(--bg));
+  color: rgb(var(--fg));
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "ss01";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Numeric / code contexts get the mono face + lining figures. */
+.font-mono,
+code,
+kbd,
+samp {
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  font-variant-ligatures: none;
+}
+
+::selection {
+  background: rgb(var(--primary) / 0.3);
+  color: rgb(var(--fg));
+}
+
+/* ---- scrollbars ---------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--border) / 0.14);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--border) / 0.24);
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ========================================================================== */
+@layer components {
+  /* Glass panel — the workhorse surface. */
+  .glass {
+    background:
+      linear-gradient(180deg, rgb(var(--glass) / 0.055), rgb(var(--glass) / 0.02));
+    backdrop-filter: blur(16px) saturate(1.4);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    border: 1px solid rgb(var(--hairline) / 0.08);
+    box-shadow:
+      inset 0 1px 0 0 rgb(var(--hairline) / 0.06),
+      0 1px 2px 0 rgb(0 0 0 / 0.4),
+      0 8px 30px -12px rgb(0 0 0 / 0.5);
+  }
+  .light .glass,
+  .light .glass-strong {
+    box-shadow:
+      inset 0 1px 0 0 rgb(255 255 255 / 0.6),
+      0 1px 2px 0 rgb(15 23 42 / 0.06),
+      0 8px 30px -14px rgb(15 23 42 / 0.12);
+  }
+  .glass-strong {
+    background:
+      linear-gradient(180deg, rgb(var(--glass) / 0.09), rgb(var(--glass) / 0.03));
+    backdrop-filter: blur(24px) saturate(1.6);
+    -webkit-backdrop-filter: blur(24px) saturate(1.6);
+    border: 1px solid rgb(var(--hairline) / 0.11);
+    box-shadow:
+      inset 0 1px 0 0 rgb(var(--hairline) / 0.08),
+      0 10px 40px -12px rgb(0 0 0 / 0.6);
+  }
+  .light .glass {
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.9), rgb(255 255 255 / 0.72));
+  }
+  .light .glass-strong {
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.95), rgb(255 255 255 / 0.82));
+  }
+
+  /* Card = glass + padding + rounded, with an interactive lift. */
+  .card {
+    @apply glass rounded-2xl;
+  }
+  .card-hover {
+    transition:
+      transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-2px);
+    border-color: rgb(var(--border) / 0.2);
+    box-shadow:
+      inset 0 1px 0 0 rgb(var(--glass) / 0.08),
+      0 18px 50px -18px rgb(var(--glow) / 0.25),
+      0 8px 30px -12px rgb(0 0 0 / 0.5);
+  }
+}
+
+@layer utilities {
+  /* Gradient text — for the wordmark, headline numbers, accents. */
+  .text-gradient {
+    background: linear-gradient(
+      110deg,
+      rgb(var(--primary)),
+      rgb(var(--accent)) 55%,
+      rgb(var(--accent-2))
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .bg-gradient-brand {
+    background-image: linear-gradient(110deg, rgb(var(--primary)), rgb(var(--primary-2)));
+  }
+
+  /* Hairline divider that fades at the ends. */
+  .hairline {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgb(var(--hairline) / 0.14) 20%,
+      rgb(var(--hairline) / 0.14) 80%,
+      transparent
+    );
+  }
+
+  /* Faint engineering grid, radially masked so it dissolves toward the edges. */
+  .grid-bg {
+    background-image:
+      linear-gradient(rgb(var(--hairline) / 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--hairline) / 0.045) 1px, transparent 1px);
+    background-size: 44px 44px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+  }
+
+  .glow-ring {
+    box-shadow: 0 0 0 1px rgb(var(--glow) / 0.4), 0 0 24px -4px rgb(var(--glow) / 0.5);
+  }
+
+  /* Count-up / entrance animations. Utilities so they compose with delays. */
+  .animate-fade-up {
+    animation: fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .animate-fade-in {
+    animation: fade-in 0.4s ease both;
+  }
+  .animate-scale-in {
+    animation: scale-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      rgb(var(--surface-2) / 0.5) 25%,
+      rgb(var(--glass) / 0.08) 37%,
+      rgb(var(--surface-2) / 0.5) 63%
+    );
+    background-size: 400% 100%;
+    animation: shimmer 1.4s ease-in-out infinite;
+  }
+
+  .delay-1 { animation-delay: 60ms; }
+  .delay-2 { animation-delay: 120ms; }
+  .delay-3 { animation-delay: 180ms; }
+  .delay-4 { animation-delay: 240ms; }
+  .delay-5 { animation-delay: 300ms; }
+  .delay-6 { animation-delay: 360ms; }
+}
+
+/* ---- keyframes --------------------------------------------------------- */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+/* Ambient background mesh — slow, GPU-cheap drift of three colour blobs. */
+@keyframes aurora-1 {
+  0%, 100% { transform: translate3d(-8%, -6%, 0) scale(1); }
+  50% { transform: translate3d(10%, 8%, 0) scale(1.25); }
+}
+@keyframes aurora-2 {
+  0%, 100% { transform: translate3d(12%, 4%, 0) scale(1.1); }
+  50% { transform: translate3d(-10%, -10%, 0) scale(0.9); }
+}
+@keyframes aurora-3 {
+  0%, 100% { transform: translate3d(0, 10%, 0) scale(0.95); }
+  50% { transform: translate3d(6%, -8%, 0) scale(1.2); }
+}
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgb(var(--glow) / 0.5); }
+  50% { opacity: 0.85; box-shadow: 0 0 0 6px rgb(var(--glow) / 0); }
+}
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes dash {
+  to { stroke-dashoffset: 0; }
+}
+
+.animate-aurora-1 { animation: aurora-1 26s ease-in-out infinite; }
+.animate-aurora-2 { animation: aurora-2 32s ease-in-out infinite; }
+.animate-aurora-3 { animation: aurora-3 38s ease-in-out infinite; }
+.animate-spin-slow { animation: spin-slow 14s linear infinite; }
+.animate-pulse-glow { animation: pulse-glow 2.4s ease-in-out infinite; }
+.animate-float { animation: float-y 6s ease-in-out infinite; }
+
+/* Respect users who ask for less motion: kill transforms & ambient loops,
+   keep opacity-only fades so nothing pops in jarringly. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .animate-fade-up,
+  .animate-scale-in {
+    animation: fade-in 0.2s ease both;
+  }
+  .animate-aurora-1,
+  .animate-aurora-2,
+  .animate-aurora-3,
+  .animate-float,
+  .animate-spin-slow {
+    animation: none !important;
+  }
+}
