@@ -30,3 +30,4 @@ scikit-learn>=1.5,<2
 # --- ops ---
 structlog>=24.4
 httpx>=0.28
+gunicorn>=23,<24  # prod WSGI/ASGI process manager — the Dockerfile CMD runs this
