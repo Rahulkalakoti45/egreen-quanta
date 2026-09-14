@@ -42,8 +42,8 @@ export function CorrelationPanel() {
             <Stat label="Events" value={r.event_count} sub={`${r.clusters.length} incidents · ${r.singletons.length} loose`} />
             <Stat
               label="QUBO modularity"
-              value={r.qubo_modularity}
-              sub={`baseline ${r.baseline_modularity}`}
+              value={r.qubo_modularity.toFixed(3)}
+              sub={`baseline ${r.baseline_modularity.toFixed(3)}`}
               tone={better ? "ok" : "medium"}
             />
             <Stat
@@ -72,7 +72,7 @@ export function CorrelationPanel() {
                     />
                     Incident {i + 1}
                   </span>
-                  <span className="font-mono text-muted">density {r.cluster_density[i]}</span>
+                  <span className="font-mono text-muted">density {r.cluster_density[i].toFixed(2)}</span>
                 </div>
                 <ul className="space-y-0.5 text-[11px] text-fg/90">
                   {members.map((label, j) => (
@@ -238,7 +238,7 @@ function ClusterGraph({
               className="fill-muted font-mono"
               style={{ fontSize: 10 }}
             >
-              incident {h.ci + 1} · ρ {h.density}
+              incident {h.ci + 1} · ρ {h.density.toFixed(2)}
             </text>
           </g>
         ))}
